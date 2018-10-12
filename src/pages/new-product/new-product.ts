@@ -4,6 +4,7 @@ import  { Product } from '../../models/product';
 import { FamiliesProvider } from '../../providers/families/families';
 import { Camera } from '@ionic-native/camera';
 import { BrandsProvider } from '../../providers/brands/brands';
+import { ProductProvider } from '../../providers/product/product';
 /**
  * Generated class for the NewProductPage page.
  *
@@ -25,6 +26,7 @@ export class NewProductPage {
       public navParams: NavParams,
       public families : FamiliesProvider,
       public brands : BrandsProvider,
+      public productProvider : ProductProvider,
        private camera: Camera
        ) {
     this.product = new Product()
@@ -43,7 +45,6 @@ export class NewProductPage {
     this.families.get().subscribe(families => {
       this.selectedFamily = families.find(f => f.id === e)
       this.product.subFamily = ''
-      console.log(this.selectedFamily);
     })
   }
 

@@ -1,5 +1,14 @@
 import { Provider } from './provider';
+
 export class Product {
+    private title(str: string): string { 
+        return str.replace(
+            /\w\S*/g,
+            function(txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            }
+        )
+        }
     private _gtin: string;
     public get gtin(): string {
         return this._gtin;
@@ -19,7 +28,7 @@ export class Product {
         return this._label;
     }
     public set label(value: string) {
-        this._label = value;
+        this._label = this.title(value);
     }
     private _family: string;
     public get family(): string {
@@ -77,18 +86,18 @@ export class Product {
     public set noPromo(value: boolean) {
         this._noPromo = value;
     }
-    private _price1: number;
-    public get price1(): number {
+    private _price1: string;
+    public get price1(): string {
         return this._price1;
     }
-    public set price1(value: number) {
+    public set price1(value: string) {
         this._price1 = value;
     }
-    private _price2: number;
-    public get price2(): number {
+    private _price2: string;
+    public get price2(): string {
         return this._price2;
     }
-    public set price2(value: number) {
+    public set price2(value: string) {
         this._price2 = value;
     }
     private _tva: TVA;
@@ -98,11 +107,11 @@ export class Product {
     public set tva(value: TVA) {
         this._tva = value;
     }
-    private _weight: number;
-    public get weight(): number {
+    private _weight: string;
+    public get weight(): string {
         return this._weight;
     }
-    public set weight(value: number) {
+    public set weight(value: string) {
         this._weight = value;
     }
     private _unit: UNIT;
@@ -126,7 +135,27 @@ export class Product {
     public set image(value: string) {
         this._image = value;
     }
+    public isInvalid(){
+        return (
+            this._brand === '' ||
+            this._family === '' ||
+            this._gtin === '' ||
+            this._label === '' ||
+            !this._price1 ||
+            parseFloat(this._price1) === 0 ||
+            !this._weight ||
+            parseFloat(this._weight) === 0 
+        )
+    }
     constructor() {
+        this.brand = ''
+            this.family= ''
+            this.gtin= ''
+            this.image= ''
+            this.label= ''
+            this.shouldBalanced = false
+            this.tva = TVA.FIVE
+            this.unit = UNIT.K
     }
     public toString = () : string =>{
         return JSON.stringify(this, null , 3);

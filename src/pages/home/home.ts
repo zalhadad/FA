@@ -30,6 +30,7 @@ export class HomePage {
         if (!v.cancelled) {
           this.navCtrl.push(NewProductPage, v);
         }
+        return false;
       })
     } else {
       this.navCtrl.push(NewProductPage, {text : "5901234123457", format : 'EAN_13'})

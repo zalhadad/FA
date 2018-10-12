@@ -16,6 +16,7 @@ import { BrandPage } from '../pages/brand/brand';
 import { BrandsProvider } from '../providers/brands/brands';
 import { HttpClientModule } from '@angular/common/http';
 import { FamiliesProvider } from '../providers/families/families';
+import { ProductProvider } from '../providers/product/product';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { FamiliesProvider } from '../providers/families/families';
     Dialogs,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BrandsProvider,
-    FamiliesProvider
+    FamiliesProvider,
+    ProductProvider
   ]
 })
 export class AppModule {}

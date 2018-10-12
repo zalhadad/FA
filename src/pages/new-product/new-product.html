@@ -24,7 +24,7 @@
     </ion-item>
     <ion-item>
         <ion-label>Famille</ion-label>
-        <ion-select interface='action-sheet' [ngModel]="product.family" (ngModelChange)="selectFamily($event)">
+        <ion-select interface='action-sheet' [(ngModel)]="product.family" (ngModelChange)="selectFamily($event)">
           <ion-option [value]="family.id" *ngFor="let family of families.get() | async">{{family.name}}</ion-option>
         </ion-select>
     </ion-item>
@@ -55,14 +55,14 @@
     <ion-item>
         <ion-label>Unité</ion-label>
         <ion-select interface='action-sheet' [(ngModel)]="product.unit">
-          <ion-option [value]="K" selected >Kilogramme</ion-option>
+          <ion-option [value]="K" >Kilogramme</ion-option>
           <ion-option [value]="L" >Litre</ion-option>
         </ion-select>
     </ion-item>
     <ion-item>
         <ion-label>TVA</ion-label>
         <ion-select interface='action-sheet' [(ngModel)]="product.tva">
-          <ion-option [value]="FIVE" selected >5.5</ion-option>
+          <ion-option [value]="FIVE" >5.5</ion-option>
           <ion-option [value]="TWENTY" >20</ion-option>
         </ion-select>
     </ion-item>
@@ -70,4 +70,9 @@
         <ion-label>Pesable</ion-label>
         <ion-toggle [(ngModel)]="product.shouldBalanced"></ion-toggle>
       </ion-item>
+      <ion-item >
+            <button ion-button full (click)="productProvider.add(product)" [disabled]="product.isInvalid()">
+                <ion-icon name="basket"></ion-icon>
+            </button>
+        </ion-item>
 </ion-content>
