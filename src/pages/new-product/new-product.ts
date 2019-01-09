@@ -5,6 +5,7 @@ import { FamiliesProvider } from '../../providers/families/families';
 import { Camera } from '@ionic-native/camera';
 import { BrandsProvider } from '../../providers/brands/brands';
 import { ProductProvider } from '../../providers/product/product';
+import { Dialogs } from '@ionic-native/dialogs';
 /**
  * Generated class for the NewProductPage page.
  *
@@ -27,7 +28,8 @@ export class NewProductPage {
       public families : FamiliesProvider,
       public brands : BrandsProvider,
       public productProvider : ProductProvider,
-       private camera: Camera
+      private dialog: Dialogs,
+      private camera: Camera
        ) {
     this.product = new Product()
     this.product.gtin = this.navParams.get('text')
@@ -39,7 +41,6 @@ export class NewProductPage {
   }
 
   ionViewDidLoad() {
-    console.log(this.product.toString());
   }
   selectFamily(e) {
     this.families.get().subscribe(families => {
@@ -59,6 +60,14 @@ export class NewProductPage {
         this.product.image = 'data:image/jpeg;base64,' + v
       })
     }
+  }
+
+  add(){
+    this.productProvider.add(this.product).subscribe( p => {
+      this.navCtrl.popToRoot();
+    }, (e) => {
+      this.dialog.alert(e.message);
+    });
   }
 
 }

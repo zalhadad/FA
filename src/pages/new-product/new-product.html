@@ -71,7 +71,7 @@
         <ion-toggle [(ngModel)]="product.shouldBalanced"></ion-toggle>
       </ion-item>
       <ion-item >
-            <button ion-button full (click)="productProvider.add(product)" [disabled]="product.isInvalid()">
+            <button ion-button full (click)="add()" [disabled]="product.isInvalid()">
                 <ion-icon name="basket"></ion-icon>
             </button>
         </ion-item>
