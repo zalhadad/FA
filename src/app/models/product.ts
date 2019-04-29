@@ -143,8 +143,8 @@ export class Product {
             this._label === '' ||
             !this._price1 ||
             parseFloat(this._price1) === 0 ||
-            !this._weight ||
-            parseFloat(this._weight) === 0 
+            (!this.shouldBalanced &&(!this._weight ||
+            parseFloat(this._weight) === 0))
         )
     }
     constructor() {
@@ -163,11 +163,11 @@ export class Product {
 
 }
 
-enum UNIT {
-    K = "Kilogramme",
-    L = "Litre",
+export enum UNIT {
+    K = "Kg",
+    L = "L",
 }
-enum TVA {
+export enum TVA {
     FIVE = 5.5,
     TWENTY = 20,
 }
