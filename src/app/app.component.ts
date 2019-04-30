@@ -26,9 +26,7 @@ export class AppComponent {
       this.statusBar.hide();
       this.splashScreen.hide();
       this.usersService.authState().subscribe(state => {
-        if (state) {
-          this.router.navigate(['/']);
-        } else {
+        if (!state) {
           this.router.navigate(['/login']);
         }
       });

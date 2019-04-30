@@ -1,0 +1,77 @@
+<ion-header>
+
+    <ion-toolbar>
+        <ion-title>{{product.gtin}}</ion-title>
+    </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-item>
+        <ion-button expand="block" (click)="picture()" *ngIf="!product.image">
+            <ion-icon name="camera"></ion-icon>
+        </ion-button>
+        <img *ngIf="product.image" src="{{product.image}}" alt="">
+    </ion-item>
+    <ion-item>
+        <ion-label>Famille</ion-label>
+        <ion-select [(ngModel)]="product.family" (ngModelChange)="product.subFamily = null">
+            <ion-select-option [value]="family.id"
+                               *ngFor="let family of families.get() | async">{{family.name}}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item *ngIf='product.family && (families.getSub(product.family) | async).length'>
+        <ion-label>Sous-famille</ion-label>
+        <ion-select [(ngModel)]="product.subFamily">
+            <ion-select-option [value]="family.id"
+                               *ngFor="let family of families.getSub(product.family) | async">{{family.name}}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Désignation</ion-label>
+        <ion-input required type="text" [(ngModel)]="product.label"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Marque</ion-label>
+        <ion-select [(ngModel)]="product.brand">
+            <ion-select-option [value]="brand.id"
+                               *ngFor="let brand of brandsList | async">{{brand.name}}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Prix</ion-label>
+        <ion-input type="number" [(ngModel)]="product.price1" required="true" clearInput=true min="0"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>TVA</ion-label>
+        <ion-select interface='action-sheet' [(ngModel)]="product.tva">
+            <ion-select-option [value]="TVA5">5.5</ion-select-option>
+            <ion-select-option [value]="TVA20">20</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Pesable</ion-label>
+        <ion-toggle [(ngModel)]="product.shouldBalanced"
+                    (ngModelChange)="balancedToggled()"></ion-toggle>
+    </ion-item>
+    <ion-item *ngIf="!product.shouldBalanced">
+        <ion-label>Contenance</ion-label>
+        <ion-input type="number" [(ngModel)]="product.weight" required="true" clearInput=true min="0"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Unité</ion-label>
+        <ion-select interface='action-sheet' [(ngModel)]="product.unit">
+            <ion-select-option [value]="UNITK">Kilogramme</ion-select-option>
+            <ion-select-option [value]="UNITL">Litre</ion-select-option>
+        </ion-select>
+    </ion-item>
+
+
+    <ion-item>
+        <ion-button expand="block" (click)="add()" [disabled]="product.isInvalid()">
+            <ion-icon name="basket"></ion-icon>
+        </ion-button>
+    </ion-item>
+    <pre>{{product}}</pre>
+</ion-content>
